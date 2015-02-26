@@ -24,10 +24,6 @@ RUN apt-get update && \
 
 ENV CASSANDRA_CONFIG /etc/cassandra
 
-# Run base config script
-ADD scripts/config-cassandra-base.sh /usr/local/bin/config-cassandra-base
-RUN /usr/local/bin/config-cassandra-base
-
 # Necessary since cassandra is trying to override the system limitations
 # See https://groups.google.com/forum/#!msg/docker-dev/8TM_jLGpRKU/dewIQhcs7oAJ
 RUN rm -f /etc/security/limits.d/cassandra.conf
