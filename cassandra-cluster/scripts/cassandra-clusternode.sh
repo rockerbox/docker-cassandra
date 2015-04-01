@@ -28,6 +28,8 @@ sed -i -e "s/- seeds: \"127.0.0.1\"/- seeds: \"$CASSANDRA_SEEDS\"/" $CASSANDRA_C
 # Most likely not needed
 echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=$IP\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
 
+echo "log4j.logger.org.apache.cassandra=DEBUG" >> $CASSANDRA_CONFIG/log4j-server.properties
+
 echo "Starting Cassandra on $IP..."
 
 cassandra -f
