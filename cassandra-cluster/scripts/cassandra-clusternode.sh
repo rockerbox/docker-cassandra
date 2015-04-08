@@ -18,6 +18,12 @@ sed -i -e "s/^rpc_address.*/rpc_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 # Listen on IP:port of the container
 sed -i -e "s/^listen_address.*/listen_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 
+sed -i -e "s/^#MAX_HEAP_SIZE=\"4G\"/MAX_HEAP_SIZE=\"2G\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+
+sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"400M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+
+
+
 # Configure Cassandra seeds
 if [ -z "$CASSANDRA_SEEDS" ]; then
 	echo "No seeds specified, being my own seed..."
@@ -27,8 +33,6 @@ sed -i -e "s/- seeds: \"127.0.0.1\"/- seeds: \"$CASSANDRA_SEEDS\"/" $CASSANDRA_C
 
 # Most likely not needed
 echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=$IP\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
-
-echo "log4j.logger.org.apache.cassandra=DEBUG" >> $CASSANDRA_CONFIG/log4j-server.properties
 
 echo "Starting Cassandra on $IP..."
 
