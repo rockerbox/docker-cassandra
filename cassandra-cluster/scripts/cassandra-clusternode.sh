@@ -18,9 +18,9 @@ sed -i -e "s/^rpc_address.*/rpc_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 # Listen on IP:port of the container
 sed -i -e "s/^listen_address.*/listen_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 
-sed -i -e "s/^#MAX_HEAP_SIZE=\"4G\"/MAX_HEAP_SIZE=\"2G\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+#sed -i -e "s/^#MAX_HEAP_SIZE=\"4G\"/MAX_HEAP_SIZE=\"2G\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
-sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"400M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+#sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"400M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
 
 
