@@ -5,7 +5,7 @@
 # Installs Cassandra 2.0 package. Does only basic configuration.
 # Tokens and seed nodes should be configured by child images.
 
-FROM dockerfile/java:oracle-java7
+FROM java:7
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -19,7 +19,7 @@ RUN ln -s -f /bin/true /usr/bin/chfn
 
 # Install Cassandra 2.0.10
 RUN apt-get update && \
-    apt-get install -y cassandra=2.0.10 dsc20=2.0.10-1 && \
+    apt-get install -y cassandra=2.1.8 dsc21=2.1.8-1 && \
     rm -rf /var/lib/apt/lists/*
 
 ENV CASSANDRA_CONFIG /etc/cassandra
@@ -29,5 +29,9 @@ ENV CASSANDRA_CONFIG /etc/cassandra
 RUN rm -f /etc/security/limits.d/cassandra.conf
 
 EXPOSE 7199 7000 7001 9160 9042 22 8012 61621
+
+# For adding custom lucene index feature
+# Note: this should be compiled on your machine and placed in this directory
+COPY cassandra-lucene-index-plugin-2.1.8.0.jar /usr/share/cassandra/lib/
 
 CMD [""]

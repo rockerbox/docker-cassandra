@@ -6,7 +6,7 @@
 # If CASSANDRA_SEEDS is not set, node acts as its own seed
 # If CASSANDRA_TOKEN is not set, startup process is aborted
 
-FROM cakesolutions/cassandra:base
+FROM rockerbox/cassandra:base
 
 USER root
 
