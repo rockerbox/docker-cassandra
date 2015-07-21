@@ -22,7 +22,10 @@ sed -i -e "s/^listen_address.*/listen_address: $IP/" $CASSANDRA_CONFIG/cassandra
 
 #sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"400M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
-
+# Enable remote JMX connections
+sed -i -e "s/^LOCAL_JMX=yes/LOCAL_JMX=no/" $CASSANDRA_CONFIG/cassandra-env.sh
+sed -i -e "s/JVM_OPTS=\"\$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=true\"/JVM_OPTS=\"\$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=false\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+sed -i -e "s/JVM_OPTS=\"\$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=\/etc\/cassandra\/jmxremote.password\"/#JVM_OPTS=\"\$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=\/etc\/cassandra\/jmxremote.password\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
 # Configure Cassandra seeds
 if [ -z "$CASSANDRA_SEEDS" ]; then
