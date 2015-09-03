@@ -18,9 +18,9 @@ sed -i -e "s/^rpc_address.*/rpc_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 # Listen on IP:port of the container
 sed -i -e "s/^listen_address.*/listen_address: $IP/" $CASSANDRA_CONFIG/cassandra.yaml
 
-#sed -i -e "s/^#MAX_HEAP_SIZE=\"4G\"/MAX_HEAP_SIZE=\"2G\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+#sed -i -e "s/^#MAX_HEAP_SIZE=\"4G\"/MAX_HEAP_SIZE=\"6G\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
-#sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"400M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
+#sed -i -e "s/^#HEAP_NEWSIZE=\"800M\"/HEAP_NEWSIZE=\"1200M\"/" $CASSANDRA_CONFIG/cassandra-env.sh
 
 # Enable remote JMX connections
 sed -i -e "s/^LOCAL_JMX=yes/LOCAL_JMX=no/" $CASSANDRA_CONFIG/cassandra-env.sh
@@ -36,6 +36,7 @@ sed -i -e "s/- seeds: \"127.0.0.1\"/- seeds: \"$CASSANDRA_SEEDS\"/" $CASSANDRA_C
 
 # Most likely not needed
 echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=$IP\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
+echo "JVM_OPTS=\"\$JVM_OPTS -Dcassandra.metricsReporterConfigFile=/etc/cassandra/cassandra-metrics.yaml\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
 
 echo "Starting Cassandra on $IP..."
 

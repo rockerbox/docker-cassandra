@@ -1,0 +1,18 @@
+graphite:
+  -
+    period: 60
+    timeunit: 'SECONDS'
+    hosts:
+      - host: '54.225.214.56'
+        port: 2003
+    predicate:
+      color: "white"
+      useQualifiedName: true
+      patterns:
+        - "^org.apache.cassandra.metrics.Cache.+"
+        - "^org.apache.cassandra.metrics.ClientRequest.+"
+        - "^org.apache.cassandra.metrics.Streaming.+"
+        - "^org.apache.cassandra.metrics.Connection.+"
+        - "^org.apache.cassandra.metrics.Storage.+"
+        - "^org.apache.cassandra.metrics.ThreadPools.+"
+    prefix: 'cassandra.${host.name}'
