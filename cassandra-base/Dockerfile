@@ -5,7 +5,7 @@
 # Installs Cassandra 2.0 package. Does only basic configuration.
 # Tokens and seed nodes should be configured by child images.
 
-FROM java:7
+FROM java:8
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -35,7 +35,11 @@ EXPOSE 7199 7000 7001 9160 9042 22 8012 61621
 COPY cassandra-lucene-index-plugin-2.1.8.0.jar /usr/share/cassandra/lib/
 COPY rockerbox-analyzers.jar /usr/share/cassandra/lib/
 #COPY metrics-graphite-2.2.0.jar /usr/share/cassandra/lib/
+COPY TimeWindowCompactionStrategy-2.2.0.jar /usr/share/cassandra/lib/
+
 COPY metrics-graphite-3.1.2.jar /usr/share/cassandra/lib/
 COPY cassandra-metrics.yaml /etc/cassandra/
+COPY cassandra.yaml /etc/cassandra/
+
 
 CMD [""]
