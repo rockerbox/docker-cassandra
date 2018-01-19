@@ -3,7 +3,7 @@ graphite:
     period: 60
     timeunit: 'SECONDS'
     hosts:
-      - host: '54.225.214.56'
+      - host: 'graphite.getrockerbox.com'
         port: 2003
     predicate:
       color: "white"
