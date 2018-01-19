@@ -2,7 +2,7 @@
 
 # Get running container's IP
 IP=`hostname --ip-address | cut -f 1 -d ' '`
-if [ $# == 1 ]; then SEEDS="$1,$IP"; 
+if [ $# == 1 ]; then SEEDS="$1,$IP";
 else SEEDS="$IP"; fi
 
 # Setup cluster name
@@ -41,6 +41,20 @@ sed -i -e "s/- seeds: \"127.0.0.1\"/- seeds: \"$CASSANDRA_SEEDS\"/" $CASSANDRA_C
 # Most likely not needed
 echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=$IP\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
 echo "JVM_OPTS=\"\$JVM_OPTS -Dcassandra.metricsReporterConfigFile=/etc/cassandra/cassandra-metrics.yaml\"" >> $CASSANDRA_CONFIG/cassandra-env.sh
+
+# Configurable Compaction Threads
+if [ -z "$CASSANDRA_COMPACTION_THREADS" ]; then
+        echo "No compaction thread count specified, preserving default one"
+else
+        sed -i -e "s/^concurrent_compactors:.*/concurrent_compactors: $CASSANDRA_COMPACTION_THREADS/" $CASSANDRA_CONFIG/cassandra.yaml
+fi
+
+# Configurable Compaction Throughput
+if [ -z "$CASSANDRA_COMPACTION_THROUGHPUT" ]; then
+        echo "No compaction throughput specified, preserving default one"
+else
+        sed -i -e "s/^compaction_throughput_mb_per_sec:.*/compaction_throughput_mb_per_sec: $CASSANDRA_COMPACTION_THROUGHPUT/" $CASSANDRA_CONFIG/cassandra.yaml
+fi
 
 echo "Starting Cassandra on $IP..."
 
