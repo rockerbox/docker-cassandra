@@ -12,6 +12,10 @@ USER root
 
 # Place cluster-node startup-config script
 ADD scripts/cassandra-clusternode.sh /usr/local/bin/cassandra-clusternode
+ADD scripts/ready-probe.sh /srv/ready-probe.sh
+RUN chmod 777 /srv/ready-probe.sh
 
 # Start Cassandra
 ENTRYPOINT ["cassandra-clusternode"]
+
+#CMD ["/bin/bash"]
